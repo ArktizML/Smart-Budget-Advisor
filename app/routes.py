@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Expense
 from .storage import load_data, save_data
+import time
 
 main = Blueprint('main', __name__)
 
@@ -12,8 +13,15 @@ def index():
 @main.route('/add', methods=['GET', 'POST'])
 def add_expense():
     if request.method == 'POST':
-        amount = request.form['amount']
-        category = request.form['category']
+        try:
+            amount = float(request.form['amount'].strip())
+        except ValueError:
+            flash("amount must be a number.")
+            return redirect("/add")
+        if float(amount) <= 0:
+            flash("Amount must be greater than 0.", "error")
+            return redirect("/add")
+        category = request.form['category'].strip()
         description = request.form.get('description', '')
 
         new_expense = Expense(amount, category, description)
