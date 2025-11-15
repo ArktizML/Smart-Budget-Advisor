@@ -1,4 +1,5 @@
 from datetime import datetime
+import uuid
 
 class Expense:
     def __init__(self, amount, category, description=None, date=None):
@@ -9,6 +10,7 @@ class Expense:
 
     def to_dict(self):
         return {
+            "id": str(uuid.uuid4()),
             "amount": self.amount,
             "category": self.category,
             "description": self.description,

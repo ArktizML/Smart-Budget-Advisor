@@ -1,6 +1,6 @@
 import json, os
 
-DATA_DIR = "smart_budget_advisor/data"
+DATA_DIR = "data"
 DATA_PATH = os.path.join(DATA_DIR, "data.json")
 
 os.makedirs(DATA_DIR, exist_ok=True)

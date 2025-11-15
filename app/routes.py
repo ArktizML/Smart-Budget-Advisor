@@ -5,7 +5,7 @@ import time
 
 main = Blueprint('main', __name__)
 
-@main.route('/')
+@main.route("/")
 def index():
     data = load_data()
     return render_template('index.html', expenses=data)
@@ -31,3 +31,13 @@ def add_expense():
 
         return redirect(url_for('main.index'))
     return render_template('add_expense.html')
+
+@main.route('/delete/<expense_id>', methods=['POST'])
+def delete_expense(expense_id):
+    expenses = load_data()
+
+    expenses = [e for e in expenses if e["id"] != expense_id]
+
+    save_data(expenses)
+    flash("Expense deleted.", "success")
+    return redirect("/")

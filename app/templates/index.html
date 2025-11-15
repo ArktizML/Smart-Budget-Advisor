@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Smart  Budget Advisor</h1>
-    <a href="/add">➕ Add Expense</a>
+    <a href="/add"><button>➕ Add Expense</button></a><br><br>
     {% if expenses %}
         <table border="1" cellpadding="8">
             <tr>
@@ -15,6 +15,7 @@
                 <th>Category</th>
                 <th>Amount</th>
                 <th>Description</th>
+                <th>Options</th>
             </tr>
             {% for e in expenses %}
             <tr>
@@ -22,10 +23,29 @@
                 <td>{{ e.category }}</td>
                 <td>{{ e.amount }}</td>
                 <td>{{ e.description }}</td>
+                <td><button>Edit</button>
+                <form action="/delete/{{ e.id }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn-delete">Delete</button>
+                </form></td>
             </tr>
+            
             {% endfor %}
         </table>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{success}}" style="color: red; font-style: italic;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
     {% else %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{success}}" style="color: red; font-style: italic;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <p>No expenses yet.</p>
     {% endif %}
 </body>

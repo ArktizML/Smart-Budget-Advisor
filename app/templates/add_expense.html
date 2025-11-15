@@ -10,13 +10,13 @@
    <form action="/add" method="POST">
         <label for="">Amount:</label><br>
         <input type="number" step="0.01" name="amount" required><br>
-        {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <div style="color: red; font-style: italic;">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{error}}" style="color: red; font-style: italic;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
         <br>
 
         <label for="">Category:</label><br>
