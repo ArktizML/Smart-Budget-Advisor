@@ -23,7 +23,9 @@
                 <td>{{ e.category }}</td>
                 <td>{{ e.amount }}</td>
                 <td>{{ e.description }}</td>
-                <td><button>Edit</button>
+                <td><form action="/edit/{{ e.id }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn-edit">Edit</button>
+                </form>
                 <form action="/delete/{{ e.id }}" method="POST" style="display:inline;">
                 <button type="submit" class="btn-delete">Delete</button>
                 </form></td>

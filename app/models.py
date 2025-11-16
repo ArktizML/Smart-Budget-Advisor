@@ -1,5 +1,6 @@
 from datetime import datetime
 import uuid
+from .storage import load_data
 
 class Expense:
     def __init__(self, amount, category, description=None, date=None):
@@ -16,3 +17,11 @@ class Expense:
             "description": self.description,
             "date": self.date
         }
+    
+    @staticmethod
+    def get_by_id(expense_id):
+        expenses = load_data()
+        for e in expenses:
+            if e['id'] == expense_id:
+                return e
+        return None
