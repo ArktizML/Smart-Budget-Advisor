@@ -44,7 +44,7 @@ def delete_expense(expense_id):
 
 @main.route('/edit/<expense_id>', methods=['GET', 'POST'])
 def edit_expense(expense_id):
-    data = load_data
+    data = load_data()
     expense = Expense.get_by_id(expense_id)
     if expense is None:
         flash("Expense not found.", "error")
@@ -56,12 +56,13 @@ def edit_expense(expense_id):
         new_description = request.form.get("description")
 
         if not new_amount:
-            flash("Amount is missing. Please enter a value.", "error")
             return redirect(f"/edit/{expense_id}")
-                    
-        expense['amount'] = float(new_amount)
-        expense['category'] = new_category or expense.get("category", "")
-        expense['description'] = new_description or expense.get("description", "")
+
+        for expense in data:
+                if expense['id'] == expense_id:    
+                    expense['amount'] = float(new_amount)
+                    expense['category'] = new_category or expense.get("category", "")
+                    expense['description'] = new_description or expense.get("description", "")
         save_data(data)
 
         flash("Expense updated!.", "success")

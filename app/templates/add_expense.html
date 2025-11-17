@@ -1,33 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New expense</title>
-</head>
-<body>
-   <h2>Add new expense</h2>
-   <form action="/add" method="POST">
-        <label for="">Amount:</label><br>
-        <input type="number" step="0.01" name="amount" required><br>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="{{error}}" style="color: red; font-style: italic;">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <br>
+{% extends "layout.html" %}
+{% block content %}
 
-        <label for="">Category:</label><br>
-        <input type="text" name="category" required><br><br>
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Add Expense</h2>
 
-        <label for="">Description (optional)</label><br>
-        <input type="text" name="description"><br><br>
+    <form method="POST" action="/add">
+        
+        <!-- Amount -->
+        <div class="mb-3">
+            <label class="form-label">Amount (zł)</label>
+            <input type="number" step="0.01" class="form-control" name="amount" required>
+        </div>
 
-        <button type="submit">Add Expense</button>
-   </form>
-   
-   <br><a href="/">Back to Dashboard</a>
-</body>
-</html>
+        <!-- Category -->
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" name="category" required>
+                <option value="">Select category</option>
+                <option>Food</option>
+                <option>Transport</option>
+                <option>Rent</option>
+                <option>Shopping</option>
+                <option>Entertainment</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label class="form-label">Description (optional)</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-primary w-100">Add Expense</button>
+    </form>
+</div>
+
+{% endblock %}
