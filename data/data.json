@@ -2,7 +2,7 @@
     {
         "id": "34142462-6511-4028-8cc9-a26d4a9656a8",
         "amount": 50.0,
-        "category": "Food",
+        "category": "Entertainment",
         "description": "",
         "date": "2025-11-17 19:40:10"
     },
@@ -18,14 +18,14 @@
         "amount": 123.0,
         "category": "Other",
         "description": "",
-        "date": "2025-11-17 19:53:34"
+        "date": "2025-10-17 19:53:34"
     },
     {
         "id": "5c9d0c92-4922-4571-b11a-3056165fb7f3",
         "amount": 32.0,
         "category": "Entertainment",
         "description": "",
-        "date": "2025-11-17 19:53:50"
+        "date": "2025-09-17 19:53:50"
     },
     {
         "id": "b5e86ae0-0be0-4986-98af-8469e1c619e5",

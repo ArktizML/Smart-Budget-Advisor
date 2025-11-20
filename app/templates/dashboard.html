@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Expenses by Category</h4>
+            <canvas id="categoryChart"></canvas>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Monthly Spending</h4>
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </div>
+
+</div>
+<script>
+    async function loadDashboard() {
+    const res = await fetch("/api/expenses");
+    const data = await res.json();
+
+    console.log("DATA Z API:", data); // ← sprawdź czy jest
+
+    // ---------- PIE -------------
+    const categories = {};
+    data.forEach(exp => {
+        if (!categories[exp.category]) categories[exp.category] = 0;
+        categories[exp.category] += exp.amount;
+    });
+
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'pie',
+        data: {
+            labels: Object.keys(categories),
+            datasets: [{
+                data: Object.values(categories)
+            }]
+        }
+    });
+
+    // ---------- MONTHLY ----------
+    const monthly = {};
+
+    data.forEach(exp => {
+        // poprawne pobieranie miesiąca
+        const month = exp.date.slice(0, 7); // "YYYY-MM"
+        if (!monthly[month]) monthly[month] = 0;
+        monthly[month] += exp.amount;
+    });
+
+    new Chart(document.getElementById('monthlyChart'), {
+        type: 'bar',
+        data: {
+            labels: Object.keys(monthly),
+            datasets: [{
+                label: "Monthly Spending",
+                data: Object.values(monthly)
+            }]
+        }
+    });
+}
+
+loadDashboard(); // ← URUCHOM FUNKCJĘ
+    </script>
+{% endblock %}

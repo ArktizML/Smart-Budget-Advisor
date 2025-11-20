@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Expense
 from .storage import load_data, save_data
 import time
+import json
 
 main = Blueprint('main', __name__)
 
@@ -69,3 +70,12 @@ def edit_expense(expense_id):
         return redirect('/')
 
     return render_template('edit_expense.html', expense=expense)
+
+@main.route('/api/expenses', methods=['GET'])
+def data_to_json():
+    data = load_data()
+    return jsonify(data)
+
+@main.route('/dashboard', methods=["GET", "POST"])
+def make_dashboard():
+    return render_template('dashboard.html')
