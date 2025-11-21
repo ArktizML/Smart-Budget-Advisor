@@ -3,6 +3,37 @@
         {% if expenses %}
         <div class="container mt-4">
             <h2 class="mb-3">Your Expenses</h2>
+              <!-- FILTER FORM -->
+            <form method="GET" action="/" class="row g-3 mb-4">
+
+                <!-- Category -->
+                <div class="col-md-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" name="category" class="form-control" placeholder="e.g. Food"
+                        value="{{ request.args.get('category', '') }}">
+                </div>
+
+                <!-- From date -->
+                <div class="col-md-3">
+                    <label class="form-label">From date</label>
+                    <input type="date" name="from_date" class="form-control"
+                        value="{{ request.args.get('from_date', '') }}">
+                </div>
+
+                <!-- To date -->
+                <div class="col-md-3">
+                    <label class="form-label">To date</label>
+                    <input type="date" name="to_date" class="form-control"
+                        value="{{ request.args.get('to_date', '') }}">
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-3 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary w-50">Filter</button>
+                    <a href="/" class="btn btn-secondary w-50">Clear</a>
+                </div>
+
+            </form>
             <table class="table-responsive table table-striped table-hover align-middle">
                 <thead class="table-dark">
                     <tr>

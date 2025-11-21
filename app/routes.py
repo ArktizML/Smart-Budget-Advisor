@@ -1,15 +1,36 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from .models import Expense
 from .storage import load_data, save_data
-import time
-import json
+import time, datetime, json, csv, io
 
 main = Blueprint('main', __name__)
 
 @main.route("/")
 def index():
-    data = load_data()
-    return render_template('index.html', expenses=data)
+    expenses = load_data()
+
+    category = request.args.get("category")
+    from_date = request.args.get("from_date")
+    to_date = request.args.get("to_date")
+
+    DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+    #Category filter
+    if category:
+        expenses = [e for e in expenses if e['category'].lower() == category.lower()]
+
+    # From-date filter
+    if from_date:
+        from_dt = datetime.datetime.strptime(from_date, "%Y-%m-%d")
+        expenses = [e for e in expenses if datetime.datetime.strptime(e["date"], DATE_FORMAT) >= from_dt]
+
+    # To-date filter
+    if to_date:
+        to_dt = datetime.datetime.strptime(to_date, "%Y-%m-%d")
+        expenses = [e for e in expenses if datetime.datetime.strptime(e["date"], DATE_FORMAT) <= to_dt]
+
+
+    return render_template('index.html', expenses=expenses)
 
 @main.route('/add', methods=['GET', 'POST'])
 def add_expense():
