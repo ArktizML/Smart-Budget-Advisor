@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
-from .models import Expense
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, session
+from .models import Expense, User
 from .storage import load_data, save_data
 import time, datetime, json, csv, io
 
@@ -100,3 +100,41 @@ def data_to_json():
 @main.route('/dashboard', methods=["GET", "POST"])
 def make_dashboard():
     return render_template('dashboard.html')
+
+@main.route('/register', methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username").strip()
+        password = request.form.get("password")
+        # validation
+        user = User.create_user(username, password)
+        if user is None:
+            flash("User already exists", "danger")
+            return redirect("/register")
+        #log in
+        session["user_id"] = user.id
+        flash("Registered and logged in", "success")
+        return redirect("/")
+    return render_template("register.html")
+
+
+@main.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username").strip()
+        password = request.form.get("password")
+        user = User.verify_credentials(username, password)
+        if user is None:
+            flash("Invaild username or password", "danger")
+            return redirect("/login")
+        
+        session["user_id"] = user.id
+        flash("Logged in", "success")
+        return redirect("/")
+    return render_template("login.html")
+
+@main.route('/logout')
+def logout():
+    session.pop("user_id", None)
+    flash("Logged out", "info")
+    return redirect("/")
