@@ -7,7 +7,12 @@ main = Blueprint('main', __name__)
 
 @main.route("/")
 def index():
-    expenses = load_data()
+    if "user_id" not in session:
+        return redirect("/login")
+    
+    user_id = session["user_id"]
+    all_expenses = load_data()
+    expenses = [e for e in all_expenses if e.get("user_id") == user_id]
 
     category = request.args.get("category")
     from_date = request.args.get("from_date")
@@ -34,6 +39,10 @@ def index():
 
 @main.route('/add', methods=['GET', 'POST'])
 def add_expense():
+    if "user_id" not in session:
+        flash("Log in first.", "warning")
+        return redirect('/login')
+    
     if request.method == 'POST':
         try:
             amount = float(request.form['amount'].strip())
@@ -43,10 +52,11 @@ def add_expense():
         if float(amount) <= 0:
             flash("Amount must be greater than 0.", "error")
             return redirect("/add")
+        user_id = session["user_id"]
         category = request.form['category'].strip()
         description = request.form.get('description', '')
 
-        new_expense = Expense(amount, category, description)
+        new_expense = Expense(user_id, amount, category, description)
         data = load_data()
         data.append(new_expense.to_dict())
         save_data(data)
@@ -56,9 +66,13 @@ def add_expense():
 
 @main.route('/delete/<expense_id>', methods=['POST'])
 def delete_expense(expense_id):
+    if "user_id" not in session:
+        return redirect("/login")
+    
+    user_id = session["user_id"]
     expenses = load_data()
 
-    expenses = [e for e in expenses if e["id"] != expense_id]
+    expenses = [e for e in expenses if not (e["id"] == expense_id and e["user_id"] == user_id)]
 
     save_data(expenses)
     flash("Expense deleted.", "success")
@@ -67,7 +81,7 @@ def delete_expense(expense_id):
 @main.route('/edit/<expense_id>', methods=['GET', 'POST'])
 def edit_expense(expense_id):
     data = load_data()
-    expense = Expense.get_by_id(expense_id)
+    expense = next((e for e in load_data() if e["id"] == expense_id and e["user_id"] == session["user_id"]), None)
     if expense is None:
         flash("Expense not found.", "error")
         return redirect('/')
@@ -106,7 +120,11 @@ def register():
     if request.method == "POST":
         username = request.form.get("username").strip()
         password = request.form.get("password")
+        password2 = request.form.get("password2")
         # validation
+        if password != password2:
+            flash("Passwords are incorrect", "danger")
+            return redirect("/register")
         user = User.create_user(username, password)
         if user is None:
             flash("User already exists", "danger")
