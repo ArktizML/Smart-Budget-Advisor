@@ -131,6 +131,7 @@ def register():
             return redirect("/register")
         #log in
         session["user_id"] = user.id
+        session["username"] = user.username
         flash("Registered and logged in", "success")
         return redirect("/")
     return render_template("register.html")
@@ -147,12 +148,13 @@ def login():
             return redirect("/login")
         
         session["user_id"] = user.id
+        session["username"] = user.username
         flash("Logged in", "success")
         return redirect("/")
     return render_template("login.html")
 
 @main.route('/logout')
 def logout():
-    session.pop("user_id", None)
+    session.clear()
     flash("Logged out", "info")
     return redirect("/")

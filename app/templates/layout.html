@@ -21,7 +21,14 @@
             <div>
                 <a href="/download/csv" class="btn btn-success btn-sm me-2">Download CSV</a>
                 <a href="/dashboard" class="btn btn-light btn-sm me-2">Dashboard</a>
-                <a href="/add" class="btn btn-light btn-sm">Add Expense</a>
+                <a href="/add" class="btn btn-light btn-sm me-2">Add Expense</a>
+                {% if session.get("username") %}
+                    <span class="disabled btn btn-light btn-sm me-2">Logged in as: <b>{{ session['username'] }}</b></span>
+                    <a class="text-danger btn btn-light btn-sm me-2" href="/logout">Logout</a>
+                {% else %}
+                        <a class="btn btn-light btn-sm me-2" href="/login">Login</a>
+                        <a class="btn btn-light btn-sm me-2" href="/register">Register</a>
+                {% endif %}
             </div>
         </div>
     </nav>
