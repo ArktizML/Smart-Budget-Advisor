@@ -108,11 +108,18 @@ def edit_expense(expense_id):
 
 @main.route('/api/expenses', methods=['GET'])
 def data_to_json():
-    data = load_data()
-    return jsonify(data)
+    if "user_id" not in session:
+        return jsonify([])
+
+    user_id = session["user_id"]
+    all_expenses = load_data()
+    expenses = [e for e in all_expenses if e.get("user_id") == user_id]
+    return jsonify(expenses)
 
 @main.route('/dashboard', methods=["GET", "POST"])
 def make_dashboard():
+    if "user_id" not in session:
+        return redirect("/login")
     return render_template('dashboard.html')
 
 @main.route('/register', methods=["GET", "POST"])

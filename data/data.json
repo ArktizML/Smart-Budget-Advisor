@@ -30,5 +30,13 @@
         "category": "Entertainment",
         "description": "",
         "date": "2025-11-24 11:26:12"
+    },
+    {
+        "id": "ae16e9a4-a9e8-4f57-ba87-c40817a1c5cf",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 44.0,
+        "category": "Rent",
+        "description": "",
+        "date": "2025-11-26 11:34:57"
     }
 ]
