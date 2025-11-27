@@ -38,5 +38,29 @@
         "category": "Rent",
         "description": "",
         "date": "2025-11-26 11:34:57"
+    },
+    {
+        "id": "2339a675-f605-476a-a155-a13bfacb5c0a",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 53.0,
+        "category": "Shopping",
+        "description": "",
+        "date": "2025-11-27 10:05:47"
+    },
+    {
+        "id": "4f44ea75-7fd9-49f8-b49f-39afd5ac423f",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 15.0,
+        "category": "Entertainment",
+        "description": "",
+        "date": "2025-11-27 10:05:57"
+    },
+    {
+        "id": "b85ce951-c4ad-4e23-87a7-9f060e54f7b2",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 66.0,
+        "category": "Other",
+        "description": "",
+        "date": "2025-11-27 10:06:02"
     }
 ]

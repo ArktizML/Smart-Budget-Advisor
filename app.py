@@ -15,10 +15,8 @@ def download_csv():
     user_id = session["user_id"]
     all_expenses = load_data()
 
-    # FILTROWANIE PO USERZE ✔✔✔
     expenses = [e for e in all_expenses if e.get("user_id") == user_id]
 
-    # Jeżeli nie ma danych → wyświetl info
     if not expenses:
         flash("You have no expenses to export.", "warning")
         return redirect("/")
