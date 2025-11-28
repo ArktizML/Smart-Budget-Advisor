@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from .models import Expense, User
 from .storage import load_data, save_data
 import time, datetime, json, csv, io
+from .advisor import analyze_expenses
 
 main = Blueprint('main', __name__)
 
@@ -165,3 +166,18 @@ def logout():
     session.clear()
     flash("Logged out", "info")
     return redirect("/")
+
+@main.route('/advisor')
+def advisor():
+    if "user_id" not in session:
+        flash("Log in first.", "warning")
+        return redirect("/login")
+
+    user_id = session["user_id"]
+
+    all_expenses = load_data()
+    expenses = [e for e in all_expenses if e.get("user_id") == user_id]
+
+    report = analyze_expenses(expenses)
+
+    return render_template("advisor.html", report=report)
