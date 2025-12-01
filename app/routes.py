@@ -1,6 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, session, send_file
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from io import BytesIO
+import json
 from .models import Expense, User
 from .storage import load_data, save_data
+from.users_storage import load_users, save_users
 import time, datetime, json, csv, io
 from .advisor import analyze_expenses
 
@@ -181,3 +186,50 @@ def advisor():
     report = analyze_expenses(expenses)
 
     return render_template("advisor.html", report=report)
+
+@main.route("/export_pdf")
+def export_pdf():
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("You must be logged in", "danger")
+        return redirect("/login")
+
+    expenses = load_data()
+    users = load_users()
+
+    user = next((u for u in users if u["id"] == user_id), None)
+    username = user["username"]
+
+    user_expenses = [e for e in expenses if e["user_id"] == user_id]
+
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+
+    pdf.setFont("Helvetica-Bold", 18)
+    pdf.drawString(40, height - 50, f"Expense Report for: {username}")
+
+    pdf.setFont("Helvetica", 12)
+    y = height - 100
+
+    if not user_expenses:
+        pdf.drawString(40, y, "No expenses found.")
+    else:
+        for e in user_expenses:
+            text = f"{e['date']} | {e['category']} | {e['amount']} | {e['description']}"
+            pdf.drawString(40, y, text)
+            y -= 20
+            if y < 40:
+                pdf.showPage()
+                pdf.setFont("Helvetica", 12)
+                y = height - 40
+
+    pdf.save()
+    buffer.seek(0)
+
+    filename = f"expense_report_{datetime.datetime.now().strftime('%Y-%m-%d')}.pdf"
+
+    return send_file(buffer,
+                     as_attachment=True,
+                     download_name=filename,
+                     mimetype="application/pdf")
