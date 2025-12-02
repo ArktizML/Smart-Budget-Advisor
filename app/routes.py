@@ -187,47 +187,106 @@ def advisor():
 
     return render_template("advisor.html", report=report)
 
-@main.route("/export_pdf")
+@main.route('/export_pdf')
 def export_pdf():
     user_id = session.get("user_id")
     if not user_id:
-        flash("You must be logged in", "danger")
+        flash("You must be logged in.", "danger")
         return redirect("/login")
 
-    expenses = load_data()
+    # Load users & find username
     users = load_users()
-
     user = next((u for u in users if u["id"] == user_id), None)
-    username = user["username"]
+    username = user["username"] if user else "Unknown User"
 
+    # Load expenses
+    expenses = load_data()
     user_expenses = [e for e in expenses if e["user_id"] == user_id]
 
+    # -------- ADVISOR SUMMARY --------
+    total_spent = sum(e["amount"] for e in user_expenses) if user_expenses else 0
+    num_expenses = len(user_expenses)
+    biggest = max(user_expenses, key=lambda e: e["amount"]) if user_expenses else None
+
+    # Spending by category
+    category_totals = {}
+    for e in user_expenses:
+        cat = e["category"]
+        category_totals[cat] = category_totals.get(cat, 0) + e["amount"]
+
+    biggest_category = max(category_totals, key=category_totals.get) if category_totals else None
+
+    # Avg daily spending
+    if user_expenses:
+        dates = [datetime.datetime.strptime(e["date"], "%Y-%m-%d %H:%M:%S") for e in user_expenses]
+        days = (max(dates) - min(dates)).days + 1
+        avg_daily = round(total_spent / days, 2)
+    else:
+        avg_daily = 0
+
+    # -------- PDF GENERATION --------
     buffer = BytesIO()
     pdf = canvas.Canvas(buffer, pagesize=letter)
     width, height = letter
 
-    pdf.setFont("Helvetica-Bold", 18)
-    pdf.drawString(40, height - 50, f"Expense Report for: {username}")
+    y = height - 50
+
+    pdf.setFont("Helvetica-Bold", 20)
+    pdf.drawString(40, y, f"Expense Report for {username}")
+
+    y -= 40
+    pdf.setFont("Helvetica", 12)
+    pdf.drawString(40, y, f"Generated: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+    # -------- SUMMARY SECTION --------
+    y -= 40
+    pdf.setFont("Helvetica-Bold", 14)
+    pdf.drawString(40, y, "Summary")
 
     pdf.setFont("Helvetica", 12)
-    y = height - 100
+    y -= 20
+    pdf.drawString(60, y, f"Total Spending: {total_spent} PLN")
+
+    y -= 20
+    pdf.drawString(60, y, f"Number of Expenses: {num_expenses}")
+
+    y -= 20
+    pdf.drawString(60, y, f"Average Daily Spending: {avg_daily} PLN")
+
+    y -= 20
+    pdf.drawString(60, y, f"Top Category: {biggest_category or 'N/A'}")
+
+    y -= 20
+    if biggest:
+        pdf.drawString(60, y, f"Biggest Purchase: {biggest['amount']} PLN ({biggest['category']})")
+    else:
+        pdf.drawString(60, y, "Biggest Purchase: N/A")
+
+    # -------- EXPENSE LIST --------
+    y -= 40
+    pdf.setFont("Helvetica-Bold", 14)
+    pdf.drawString(40, y, "Expenses")
+
+    pdf.setFont("Helvetica", 10)
+    y -= 20
 
     if not user_expenses:
-        pdf.drawString(40, y, "No expenses found.")
+        pdf.drawString(60, y, "No expenses found.")
     else:
         for e in user_expenses:
-            text = f"{e['date']} | {e['category']} | {e['amount']} | {e['description']}"
-            pdf.drawString(40, y, text)
-            y -= 20
+            line = f"{e['date']} | {e['category']} | {e['amount']} PLN | {e['description']}"
+            pdf.drawString(40, y, line)
+            y -= 15
+
             if y < 40:
                 pdf.showPage()
-                pdf.setFont("Helvetica", 12)
                 y = height - 40
+                pdf.setFont("Helvetica", 10)
 
     pdf.save()
     buffer.seek(0)
 
-    filename = f"expense_report_{datetime.datetime.now().strftime('%Y-%m-%d')}.pdf"
+    filename = f"report_{username}_{datetime.datetime.now().strftime('%Y-%m-%d')}.pdf"
 
     return send_file(buffer,
                      as_attachment=True,
