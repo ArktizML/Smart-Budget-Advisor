@@ -16,15 +16,11 @@
         <!-- Category -->
         <div class="mb-3">
             <label class="form-label">Category</label>
-            <select class="form-select" name="category" required>
-                <option value="">Select category</option>
-                <option {% if expense.category=='Food' %}selected{% endif %}>Food</option>
-                <option {% if expense.category=='Transport' %}selected{% endif %}>Transport</option>
-                <option {% if expense.category=='Rent' %}selected{% endif %}>Rent</option>
-                <option {% if expense.category=='Shopping' %}selected{% endif %}>Shopping</option>
-                <option {% if expense.category=='Entertainment' %}selected{% endif %}>Entertainment</option>
-                <option {% if expense.category=='Other' %}selected{% endif %}>Other</option>
-            </select>
+            <select class="form-control" name="category" required>
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if cat == expense.category %}selected{% endif %}>{{ cat }}</option>
+                 {% endfor %}
+            </select><a href="/categories" class="btn btn-sm btn-outline-success mt-2 w-100">Add New Category</a>
         </div>
 
         <!-- Description -->

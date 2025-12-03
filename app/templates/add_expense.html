@@ -15,15 +15,11 @@
         <!-- Category -->
         <div class="mb-3">
             <label class="form-label">Category</label>
-            <select class="form-select" name="category" required>
-                <option value="">Select category</option>
-                <option>Food</option>
-                <option>Transport</option>
-                <option>Rent</option>
-                <option>Shopping</option>
-                <option>Entertainment</option>
-                <option>Other</option>
-            </select>
+            <select class="form-control" name="category" required>
+                {% for cat in categories %}
+                <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+            </select><a href="/categories" class="btn btn-sm btn-outline-success mt-2 w-100">Add New Category</a>
         </div>
 
         <!-- Description -->

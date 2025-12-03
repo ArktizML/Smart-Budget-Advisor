@@ -62,5 +62,13 @@
         "category": "Other",
         "description": "",
         "date": "2025-11-27 10:06:02"
+    },
+    {
+        "id": "4861a34e-8165-4c40-a6ab-fcb2255978c2",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 40.0,
+        "category": "Pies",
+        "description": "",
+        "date": "2025-12-03 11:02:28"
     }
 ]

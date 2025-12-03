@@ -33,16 +33,18 @@ class Expense:
 
     
 class User:
-    def __init__(self, username, password, id=None):
+    def __init__(self, username, password, categories, id=None):
         self.id = id or str(uuid.uuid4())
         self.username = username
         self.password = password
+        self.categories = categories
 
     def to_dict(self):
         return {
             "id": self.id,
             "username": self.username,
-            "password": self.password
+            "password": self.password,
+            "categories": self.categories
         }
     
     @staticmethod
@@ -50,11 +52,12 @@ class User:
         return User(
             username=d["username"],
             password=d["password"],
+            categories=d["categories"],
             id=d.get("id")
         )
     
     @staticmethod
-    def create_user(username, password):
+    def create_user(username, password, categories):
         users = load_users()
 
         # check username
@@ -65,7 +68,7 @@ class User:
         pw_hash = generate_password_hash(password)
 
         # correct object creation
-        user = User(username=username, password=pw_hash)
+        user = User(username=username, password=pw_hash, categories=categories)
 
         users.append(user.to_dict())
         save_users(users)
@@ -91,7 +94,3 @@ class User:
     
     def verify_password(self, password):
         return check_password_hash(self.password, password)
-
-
-
-    

@@ -49,6 +49,10 @@ def add_expense():
         flash("Log in first.", "warning")
         return redirect('/login')
     
+    users = load_users()
+    user = next((u for u in users if u["id"] == session["user_id"]), None)
+    categories = user.get("categories", [])
+    
     if request.method == 'POST':
         try:
             amount = float(request.form['amount'].strip())
@@ -59,7 +63,7 @@ def add_expense():
             flash("Amount must be greater than 0.", "error")
             return redirect("/add")
         user_id = session["user_id"]
-        category = request.form['category'].strip()
+        category = request.form['category']
         description = request.form.get('description', '')
 
         new_expense = Expense(user_id, amount, category, description)
@@ -68,7 +72,7 @@ def add_expense():
         save_data(data)
 
         return redirect(url_for('main.index'))
-    return render_template('add_expense.html')
+    return render_template('add_expense.html', categories=categories)
 
 @main.route('/delete/<expense_id>', methods=['POST'])
 def delete_expense(expense_id):
@@ -88,6 +92,9 @@ def delete_expense(expense_id):
 def edit_expense(expense_id):
     data = load_data()
     expense = next((e for e in load_data() if e["id"] == expense_id and e["user_id"] == session["user_id"]), None)
+    users = load_users()
+    user = next((u for u in users if u["id"] == session["user_id"]), None)
+    categories = user.get("categories", [])
     if expense is None:
         flash("Expense not found.", "error")
         return redirect('/')
@@ -110,7 +117,7 @@ def edit_expense(expense_id):
         flash("Expense updated!.", "success")
         return redirect('/')
 
-    return render_template('edit_expense.html', expense=expense)
+    return render_template('edit_expense.html', expense=expense, categories=categories)
 
 @main.route('/api/expenses', methods=['GET'])
 def data_to_json():
@@ -134,11 +141,12 @@ def register():
         username = request.form.get("username").strip()
         password = request.form.get("password")
         password2 = request.form.get("password2")
+        default_categories = ["Food", "Transport", "Home", "Entertainment", "Other"]
         # validation
         if password != password2:
             flash("Passwords are incorrect", "danger")
             return redirect("/register")
-        user = User.create_user(username, password)
+        user = User.create_user(username, password, default_categories)
         if user is None:
             flash("User already exists", "danger")
             return redirect("/register")
@@ -292,3 +300,60 @@ def export_pdf():
                      as_attachment=True,
                      download_name=filename,
                      mimetype="application/pdf")
+
+@main.route("/categories")
+def categories():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect("/login")
+
+    users = load_users()
+
+    user = next((u for u in users if u["id"] == user_id), None)
+
+    categories = user.get("categories", ["Food", "Transport", "Rent", "Entertainment", "Other"])
+
+    return render_template("categories.html", categories=categories)
+
+@main.route("/categories/add", methods=["POST"])
+def add_category():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect("/login")
+
+    new_cat = request.form.get("category")
+
+    users = load_users()
+
+    user = next((u for u in users if u["id"] == user_id), None)
+
+    if new_cat in user["categories"]:
+        flash("Category already exists", "warning")
+        return redirect("/categories")
+
+    user["categories"].append(new_cat)
+
+    save_users(users)
+
+    return redirect("/categories")
+
+@main.route("/categories/delete/<cat>", methods=["POST"])
+def delete_category(cat):
+    user_id = session.get("user_id")
+
+    users = load_users()
+
+    user = next((u for u in users if u["id"] == user_id), None)
+
+    # sprawdzamy czy jakieś wydatki używają kategorii
+    expenses = load_data()
+
+    if any(e["category"] == cat and e["user_id"] == user_id for e in expenses):
+        flash("Cannot delete: category has expenses", "danger")
+        return redirect("/categories")
+
+    user["categories"].remove(cat)
+
+    save_users(users)
+
+    return redirect("/categories")
