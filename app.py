@@ -2,9 +2,18 @@ from app import create_app
 import csv, io
 from flask import make_response, session, redirect,flash
 from app.storage import load_data, save_data
+from app.ai import ai
+from dotenv import load_dotenv
+from groq import Groq
+import os
 
 app = create_app()
 app.secret_key = "super-secret-key-CHANGE-THIS"
+app.register_blueprint(ai)
+
+
+load_dotenv()
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 @app.route("/download/csv")
 def download_csv():
