@@ -4,7 +4,6 @@ from .storage import load_data
 from werkzeug.security import generate_password_hash, check_password_hash
 from .users_storage import load_users, save_users
 
-## api key groq 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
 
 class Expense:
     def __init__(self, user_id, amount, category, description=None, date=None):

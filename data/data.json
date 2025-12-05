@@ -70,5 +70,13 @@
         "category": "Pies",
         "description": "",
         "date": "2025-12-03 11:02:28"
+    },
+    {
+        "id": "4a5b17f1-ea79-4f5d-a7a6-b4d2d7d80fdf",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 25.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-05 10:55:57"
     }
 ]

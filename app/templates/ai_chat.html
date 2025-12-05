@@ -1,51 +1,62 @@
 {% extends "layout.html" %}
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ai.css') }}">
 
-<h2>AI Expense Advisor</h2>
+<div class="ai-container">
+    <h2 class="ai-title">AI Expense Advisor</h2>
 
-<div id="chat-box" style="
-    width: 100%; 
-    height: 400px; 
-    border: 1px solid #ccc; 
-    padding: 10px; 
-    overflow-y: scroll; 
-    background: #fafafa;">
+    <div id="chat-box" class="chat-box"></div>
+
+    <div id="typing" class="typing hidden">
+        <span></span><span></span><span></span>
+    </div>
+
+    <form id="chat-form" class="chat-form">
+        <input id="user-input" name="message" type="text" placeholder="Type your question..." autocomplete="off">
+        <button type="submit">Send</button>
+    </form>
 </div>
 
-<form id="chat-form">
-    <input type="text" id="msg" placeholder="Ask something..." style="width: 80%;" required>
-    <button type="submit" class="btn btn-success">Send</button>
-</form>
-
 <script>
-const box = document.getElementById("chat-box");
 const form = document.getElementById("chat-form");
-const msg = document.getElementById("msg");
+const input = document.getElementById("user-input");
+const chatBox = document.getElementById("chat-box");
+const typing = document.getElementById("typing");
 
-function addMessage(role, text) {
-    const el = document.createElement("p");
-    el.innerHTML = `<b>${role}:</b> ${text}`;
-    box.appendChild(el);
-    box.scrollTop = box.scrollHeight;
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("msg", sender);
+    msg.innerText = text;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const content = msg.value.trim();
-    if (!content) return;
+    const message = input.value.trim();
+    if (!message) return;
 
-    addMessage("You", content);
-    msg.value = "";
+    addMessage(message, "user");
+    input.value = "";
+    input.disabled = true;
+    typing.classList.remove("hidden");
 
-    const res = await fetch("/ai_chat", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({message: content})
-    });
+    try {
+        const res = await fetch("/ai_chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message })
+        });
 
-    const data = await res.json();
-    if (data.reply) {
-        addMessage("AI", data.reply);
+        const data = await res.json();
+        typing.classList.add("hidden");
+        input.disabled = false;
+
+        addMessage(data.reply, "ai");
+    } catch (error) {
+        addMessage("Error: unable to connect to AI", "ai");
+        input.disabled = false;
+        typing.classList.add("hidden");
     }
 });
 </script>
