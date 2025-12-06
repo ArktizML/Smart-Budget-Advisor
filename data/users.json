@@ -10,7 +10,8 @@
       "Entertainment",
       "Other",
       "Pies"
-    ]
+    ],
+    "currency_preference": "PLN"
   },
   {
     "id": "861d3077-787c-4430-a504-4dc87af39653",
@@ -21,7 +22,9 @@
       "Transport",
       "Rent",
       "Entertainment",
-      "Other"
-    ]
+      "Other",
+      "Betclic"
+    ],
+    "currency_preference": "PLN"
   }
 ]

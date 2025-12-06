@@ -1,82 +1,38 @@
 [
     {
-        "id": "8e42a30c-bfee-4a72-ba79-87f28b132a3d",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "id": "d4e8f943-71d4-4f1c-8c29-475897e774a2",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
         "amount": 25.0,
         "category": "Food",
-        "description": "",
-        "date": "2025-11-24 11:25:26"
+        "currency": "",
+        "description": "EUR",
+        "date": "2025-12-06 11:07:43"
     },
     {
-        "id": "803e9953-883c-4a97-87ca-0774f339caf5",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
-        "amount": 50.0,
-        "category": "Transport",
-        "description": "",
-        "date": "2025-11-24 11:25:40"
-    },
-    {
-        "id": "d4687f79-d333-43ce-9c8d-d5509599f0c4",
+        "id": "2fd97f77-f109-4aa1-b95e-7206f91db32d",
         "user_id": "861d3077-787c-4430-a504-4dc87af39653",
-        "amount": 0.01,
-        "category": "Entertainment",
-        "description": "",
-        "date": "2025-11-24 11:26:05"
-    },
-    {
-        "id": "f6bb06b7-9d46-4844-973c-4352bb292dbe",
-        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
-        "amount": 0.05,
-        "category": "Entertainment",
-        "description": "",
-        "date": "2025-11-24 11:26:12"
-    },
-    {
-        "id": "ae16e9a4-a9e8-4f57-ba87-c40817a1c5cf",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
-        "amount": 44.0,
-        "category": "Rent",
-        "description": "",
-        "date": "2025-11-26 11:34:57"
-    },
-    {
-        "id": "2339a675-f605-476a-a155-a13bfacb5c0a",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
-        "amount": 53.0,
-        "category": "Shopping",
-        "description": "",
-        "date": "2025-11-27 10:05:47"
-    },
-    {
-        "id": "4f44ea75-7fd9-49f8-b49f-39afd5ac423f",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
-        "amount": 15.0,
-        "category": "Entertainment",
-        "description": "",
-        "date": "2025-11-27 10:05:57"
-    },
-    {
-        "id": "b85ce951-c4ad-4e23-87a7-9f060e54f7b2",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
-        "amount": 66.0,
-        "category": "Other",
-        "description": "",
-        "date": "2025-11-27 10:06:02"
-    },
-    {
-        "id": "4861a34e-8165-4c40-a6ab-fcb2255978c2",
-        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
         "amount": 40.0,
-        "category": "Pies",
-        "description": "",
-        "date": "2025-12-03 11:02:28"
+        "category": "Transport",
+        "currency": "",
+        "description": "EUR",
+        "date": "2025-12-06 11:07:50"
     },
     {
-        "id": "4a5b17f1-ea79-4f5d-a7a6-b4d2d7d80fdf",
+        "id": "d3759e27-b6b7-4644-896f-d1c2b2157e46",
         "user_id": "861d3077-787c-4430-a504-4dc87af39653",
-        "amount": 25.0,
-        "category": "Food",
-        "description": "",
-        "date": "2025-12-05 10:55:57"
+        "amount": 150.0,
+        "category": "Betclic",
+        "currency": "",
+        "description": "EUR",
+        "date": "2025-12-06 11:07:56"
+    },
+    {
+        "id": "e86bf617-b6b0-4868-8e0b-ffc3dd003588",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 400.0,
+        "category": "Rent",
+        "currency": "",
+        "description": "EUR",
+        "date": "2025-12-06 11:08:01"
     }
 ]

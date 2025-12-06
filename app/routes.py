@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, session, send_file
 from reportlab.lib.pagesizes import letter
+from .currency import convert
 from reportlab.pdfgen import canvas
 from io import BytesIO
 import json
@@ -65,8 +66,9 @@ def add_expense():
         user_id = session["user_id"]
         category = request.form['category']
         description = request.form.get('description', '')
+        currency = user["currency_preference"]
 
-        new_expense = Expense(user_id, amount, category, description)
+        new_expense = Expense(user_id, amount, category, description, currency)
         data = load_data()
         data.append(new_expense.to_dict())
         save_data(data)
@@ -131,8 +133,27 @@ def data_to_json():
 
 @main.route('/dashboard', methods=["GET", "POST"])
 def make_dashboard():
-    if "user_id" not in session:
+    user_id = session.get("user_id")
+    if not user_id:
         return redirect("/login")
+
+    users = load_users()
+
+    user = next((u for u in users if u["id"] == user_id), None)
+
+    expenses = load_data()
+    user_expenses = [e for e in expenses if e["user_id"] == user_id]
+    target_currency = user["currency_preference"]
+
+    for e in user_expenses:
+        if e["currency"] != target_currency:
+            e["display_amount"] = convert(
+                e["amount"],
+                from_currency=e["currency"],
+                to_currency=target_currency
+            )
+        else:
+            e["display_amount"] = e["amount"]
     return render_template('dashboard.html')
 
 @main.route('/register', methods=["GET", "POST"])
@@ -345,7 +366,6 @@ def delete_category(cat):
 
     user = next((u for u in users if u["id"] == user_id), None)
 
-    # sprawdzamy czy jakieś wydatki używają kategorii
     expenses = load_data()
 
     if any(e["category"] == cat and e["user_id"] == user_id for e in expenses):

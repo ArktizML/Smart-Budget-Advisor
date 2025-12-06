@@ -6,11 +6,12 @@ from .users_storage import load_users, save_users
 
 
 class Expense:
-    def __init__(self, user_id, amount, category, description=None, date=None):
+    def __init__(self, user_id, amount, category, currency, description=None, date=None):
         self.id = str(uuid.uuid4())
         self.user_id = user_id
         self.amount = float(amount)
         self.category = category
+        self.currency = currency
         self.description = description or ""
         self.date = date or datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -20,6 +21,7 @@ class Expense:
             "user_id": self.user_id,
             "amount": self.amount,
             "category": self.category,
+            "currency": self.currency,
             "description": self.description,
             "date": self.date
         }
@@ -34,11 +36,12 @@ class Expense:
 
     
 class User:
-    def __init__(self, username, password, categories, id=None):
+    def __init__(self, username, password, categories, currency_preference, id=None):
         self.id = id or str(uuid.uuid4())
         self.username = username
         self.password = password
         self.categories = categories
+        self.currency_preference = currency_preference
 
     def to_dict(self):
         return {
