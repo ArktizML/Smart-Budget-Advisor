@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4 text-center">Add Expense</h2>
+
+    <form method="POST" action="/add">
+        
+        <!-- Amount -->
+        <div class="mb-3">
+            <label class="form-label">Amount (zł)</label>
+            <input type="number" step="0.01" class="form-control" name="amount" required>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select class="form-control" name="category" required>
+                {% for cat in categories %}
+                <option value="{{ cat }}">{{ cat }}</option>
+                {% endfor %}
+            </select><a href="/categories" class="btn btn-sm btn-outline-success mt-2 w-100">Add New Category</a>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label class="form-label">Description (optional)</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-primary w-100">Add Expense</button>
+    </form>
+</div>
+
+{% endblock %}

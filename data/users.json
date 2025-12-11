@@ -1,0 +1,29 @@
+[
+  {
+    "id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+    "username": "arktizeq",
+    "password": "scrypt:32768:8:1$P95p9Hl5H9UGVHVU$57d509a2a545fc30e9bafa9e725246a224d1539514cbad172801284c172a7cf06a607f50df0c6d9331430da7d17672417f988dc72bac11f27ffa71726f657cbd",
+    "categories": [
+      "Food",
+      "Transport",
+      "Rent",
+      "Entertainment",
+      "Other",
+      "Pies"
+    ],
+    "currency": "PLN"
+  },
+  {
+    "id": "861d3077-787c-4430-a504-4dc87af39653",
+    "username": "carpix",
+    "password": "scrypt:32768:8:1$UZZ2wsdmD6ejOZPC$899c84aa68fc1177cd82e8faeab460daf5c6e77df8dec3a7ddac5fa13fa3109fa0aa94f23c2dce33ac797ad1200ca152113c82ee00e021de43249dbb32b8d3d2",
+    "categories": [
+      "Food",
+      "Transport",
+      "Rent",
+      "Entertainment",
+      "Other"
+    ],
+    "currency": "EUR"
+  }
+]

@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+    {% block content%}
+        {% if expenses %}
+        <div class="container mt-4">
+            <h2 class="mb-3">Your Expenses</h2>
+              <!-- FILTER FORM -->
+            <form method="GET" action="/" class="row g-3 mb-4">
+
+                <!-- Category -->
+                <div class="col-md-3">
+                    <label class="form-label">Category</label>
+                    <input type="text" name="category" class="form-control" placeholder="e.g. Food"
+                        value="{{ request.args.get('category', '') }}">
+                </div>
+
+                <!-- From date -->
+                <div class="col-md-3">
+                    <label class="form-label">From date</label>
+                    <input type="date" name="from_date" class="form-control"
+                        value="{{ request.args.get('from_date', '') }}">
+                </div>
+
+                <!-- To date -->
+                <div class="col-md-3">
+                    <label class="form-label">To date</label>
+                    <input type="date" name="to_date" class="form-control"
+                        value="{{ request.args.get('to_date', '') }}">
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-3 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary w-50">Filter</button>
+                    <a href="/" class="btn btn-secondary w-50">Clear</a>
+                </div>
+
+            </form>
+            <table class="table-responsive table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody class="table-dark">
+                    {% for e in expenses %}
+                    <tr>
+                        <td>{{ e.date }}</td>
+                        <td>{{ e.category }}</td>
+                        <td>{{ e.converted_amount }} {{ e.display_currency }}</td>
+                        <td>{{ e.description }}</td>
+                        <td><form action="/edit/{{ e.id }}" method="POST" style="display:inline;">
+                        <a href="/edit/{{ e.id }}" class="btn btn-sm btn-warning me-1">Edit</a>
+                        </form>
+                        <form action="/delete/{{ e.id }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</button>
+                        </form></td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% endif %}
+        {% if not expenses %}
+            <div class="alert alert-warning"> No expenses found for current filter. </div>
+            <a href="/" class="btn btn-secondary">Show All</a>
+        {% endif %}
+    {% endblock %}

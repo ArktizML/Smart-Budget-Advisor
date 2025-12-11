@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1 class="mb-4">Smart Advisor</h1>
+<a href="/export_pdf" class="btn btn-danger">Export PDF</a><br><br>
+<!-- INSIGHTS -->
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        Key Insights
+    </div>
+    <div class="card-body">
+        {% if report.insights %}
+            <ul>
+                {% for i in report.insights %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No insights available.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- BASIC STATS -->
+<div class="card mb-4">
+    <div class="card-header bg-secondary text-white">
+        Basic Statistics
+    </div>
+    <div class="card-body">
+        <p><strong>Average transaction:</strong> {{ report.daily_avg }}</p>
+        <p><strong>Median transaction:</strong> {{ report.daily_median }}</p>
+        <p><strong>Monthly trend:</strong>
+            {% if report.monthly_trend == None %}
+                No enough data.
+            {% else %}
+                {{ report.monthly_trend * 100 }}%
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<!-- CATEGORY SHARES -->
+<div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        Category Breakdown
+    </div>
+    <div class="card-body">
+        {% if report.category_shares %}
+            <ul>
+                {% for cat, val in report.category_shares.items() %}
+                    <li>{{ cat }} → {{ val * 100 }}%</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No category data.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ANOMALIES -->
+<div class="card mb-4">
+    <div class="card-header bg-danger text-white">
+        Detected Anomalies
+    </div>
+    <div class="card-body">
+        {% if report.anomalies %}
+            <ul>
+                {% for a in report.anomalies %}
+                    <li>{{ a.date }} — {{ a.category }} — {{ a.amount }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No anomalies detected.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

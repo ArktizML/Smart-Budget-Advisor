@@ -1,0 +1,182 @@
+[
+    {
+        "id": "8e42a30c-bfee-4a72-ba79-87f28b132a3d",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 25.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-11-24 11:25:26"
+    },
+    {
+        "id": "803e9953-883c-4a97-87ca-0774f339caf5",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 50.0,
+        "category": "Transport",
+        "description": "",
+        "date": "2025-11-24 11:25:40"
+    },
+    {
+        "id": "ae16e9a4-a9e8-4f57-ba87-c40817a1c5cf",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 44.0,
+        "category": "Rent",
+        "description": "",
+        "date": "2025-11-26 11:34:57"
+    },
+    {
+        "id": "2339a675-f605-476a-a155-a13bfacb5c0a",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 53.0,
+        "category": "Shopping",
+        "description": "",
+        "date": "2025-11-27 10:05:47"
+    },
+    {
+        "id": "4f44ea75-7fd9-49f8-b49f-39afd5ac423f",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 15.0,
+        "category": "Entertainment",
+        "description": "",
+        "date": "2025-11-27 10:05:57"
+    },
+    {
+        "id": "b85ce951-c4ad-4e23-87a7-9f060e54f7b2",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 66.0,
+        "category": "Other",
+        "description": "",
+        "date": "2025-11-27 10:06:02"
+    },
+    {
+        "id": "4861a34e-8165-4c40-a6ab-fcb2255978c2",
+        "user_id": "0b99730b-e927-4ed1-ad8e-c9dd181aa470",
+        "amount": 40.0,
+        "category": "Pies",
+        "description": "",
+        "date": "2025-12-03 11:02:28"
+    },
+    {
+        "id": "4a5b17f1-ea79-4f5d-a7a6-b4d2d7d80fdf",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 25.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-05 10:55:57"
+    },
+    {
+        "id": "47f3881f-dc3d-4641-9654-d57a8191bc62",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 43.0,
+        "category": "Rent",
+        "description": "",
+        "date": "2025-12-09 11:47:08"
+    },
+    {
+        "id": "ac992dda-5faa-4107-bbb0-fae5b005976a",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 12.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-09 11:47:18"
+    },
+    {
+        "id": "92efee3c-804e-4078-b8a0-712d095380ef",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 100.0,
+        "category": "Rent",
+        "description": "",
+        "date": "2025-12-09 12:28:54"
+    },
+    {
+        "id": "d31202d0-0e1c-48ec-adb5-74b6fa351b70",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 100.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-10 10:28:27"
+    },
+    {
+        "id": "b74f5fb5-0292-4d1f-b005-5a5261e10459",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 100.0,
+        "category": "Entertainment",
+        "description": "",
+        "date": "2025-12-10 10:29:05"
+    },
+    {
+        "id": "10a62a82-65dc-4211-a7e2-91483bcc4e0b",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 25.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-10 10:44:30"
+    },
+    {
+        "id": "d2f2b77a-203a-4e7e-88c0-82be8d695e68",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 111.0,
+        "category": "Other",
+        "description": "",
+        "date": "2025-12-10 10:45:53",
+        "user_currency": "PLN"
+    },
+    {
+        "id": "7ea960c2-56a2-403b-bbcf-d700625299cf",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 43.0,
+        "category": "Transport",
+        "description": "",
+        "date": "2025-12-10 10:46:16"
+    },
+    {
+        "id": "2663bbc9-a332-4576-91bf-029d9e8c0407",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 22.0,
+        "category": "Entertainment",
+        "description": "",
+        "date": "2025-12-10 11:00:13"
+    },
+    {
+        "id": "935c8728-87a0-4227-bf03-ee63f3f218b5",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 10.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-10 11:01:33"
+    },
+    {
+        "id": "b0a1ce25-23e3-4493-8c2b-e3aa91daafea",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 10.0,
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-10 11:01:44"
+    },
+    {
+        "id": "6f84e7d7-3183-4f9c-8a72-492efa9eae42",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 10.0,
+        "currency": "EUR",
+        "category": "Food",
+        "description": "",
+        "date": "2025-12-11 19:03:22"
+    },
+    {
+        "id": "40fb8ddb-6de0-4ba2-91a4-dc93040412ba",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 42.26,
+        "currency": "PLN",
+        "category": "Rent",
+        "description": "",
+        "date": "2025-12-11 19:13:11"
+    },
+    {
+        "id": "51b8853d-5503-4279-bc39-caacfa1440cb",
+        "user_id": "861d3077-787c-4430-a504-4dc87af39653",
+        "amount": 38.0,
+        "currency": "PLN",
+        "category": "Entertainment",
+        "description": "",
+        "date": "2025-12-11 19:13:54"
+    }
+]
