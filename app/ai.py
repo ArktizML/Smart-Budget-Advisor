@@ -1,9 +1,6 @@
 from flask import Blueprint, request, jsonify, session, render_template
 from groq import Groq
-from .models import Expense, User
-from .storage import load_data, save_data
-from .users_storage import load_users, save_users
-import json
+from .storage import load_data
 import os
 from dotenv import load_dotenv
 

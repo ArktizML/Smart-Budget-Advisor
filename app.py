@@ -1,19 +1,29 @@
 from app import create_app
-import csv, io
+import csv, io, logging, os
 from flask import make_response, session, redirect, flash, request
-from app.storage import load_data, save_data
+from app.storage import load_data
 from app.users_storage import load_users, save_users, get_current_user
 from app.ai import ai
-import os
 from dotenv import load_dotenv
 from groq import Groq
-
-app = create_app()
-app.secret_key = "super-secret-key-CHANGE-THIS"
-app.register_blueprint(ai)
-
+from logging.handlers import RotatingFileHandler
 
 load_dotenv()
+app_key=os.environ.get("APP_SECRET_KEY")
+app = create_app()
+app.secret_key = app_key
+app.register_blueprint(ai)
+app.config['DEBUG'] = False
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = True 
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+
+handler = RotatingFileHandler('logs/error.log', maxBytes=1000000, backupCount=3)
+handler.setLevel(logging.WARNING)
+app.logger.addHandler(handler)
+
+
 api_key=os.environ.get("GROQ_API_KEY")
 client = Groq(api_key=api_key)
 
@@ -63,6 +73,7 @@ def settings():
 
 
     return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

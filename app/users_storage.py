@@ -1,7 +1,5 @@
 import json
 import os
-import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

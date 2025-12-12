@@ -6,7 +6,7 @@ from app.currency import get_rates, convert
 from .models import Expense, User
 from .storage import load_data, save_data
 from .users_storage import load_users, save_users, get_current_user
-import time, datetime, json, csv, io
+import datetime
 from .advisor import analyze_expenses
 
 main = Blueprint('main', __name__)
@@ -75,7 +75,7 @@ def add_expense():
             return redirect("/add")
 
         category = request.form['category']
-        description = request.form.get('description', '')
+        description = request.form.get('description', '')[:200]
         user_currency = user.get("currency", "PLN")
 
         rates = get_rates()
@@ -382,7 +382,6 @@ def delete_category(cat):
 
     user = next((u for u in users if u["id"] == user_id), None)
 
-    # sprawdzamy czy jakieś wydatki używają kategorii
     expenses = load_data()
 
     if any(e["category"] == cat and e["user_id"] == user_id for e in expenses):
@@ -394,3 +393,7 @@ def delete_category(cat):
     save_users(users)
 
     return redirect("/categories")
+
+@main.route("/health")
+def health():
+    return {"status": "ok"}, 200
