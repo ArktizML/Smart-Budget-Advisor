@@ -1,8 +1,10 @@
 from flask import Flask
 import os
 from dotenv import load_dotenv
-from ai import ai
+from .ai import airoute
 from .routes import main 
+
+
 
 def create_app():
     app = Flask(__name__)
@@ -13,7 +15,6 @@ def create_app():
 
     
     app.register_blueprint(main)
-    app.register_blueprint(ai)
-    app.register_blueprint(app)
+    app.register_blueprint(airoute)
 
     return app

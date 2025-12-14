@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-ai = Blueprint("ai", __name__)
+airoute = Blueprint("airoute", __name__)
 api_key=os.environ.get("GROQ_API_KEY")
 client = Groq(api_key=api_key)
 
-@ai.route("/ai_chat", methods=["POST"])
+@airoute.route("/ai_chat", methods=["POST"])
 def ai_chat():
     if "user_id" not in session:
         return jsonify({"error": "Not logged in"}), 401
@@ -58,6 +58,6 @@ Rules:
     reply = completion.choices[0].message.content
     return jsonify({"reply": reply})
 
-@ai.route("/ai_chat", methods=["GET"])
+@airoute.route("/ai_chat", methods=["GET"])
 def ai_chat_page():
     return render_template("ai_chat.html")
