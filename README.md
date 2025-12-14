@@ -157,3 +157,10 @@ pytest
 
 ## 📜 License
 This project was created for educational and portfolio purposes.
+
+---
+
+## Live Demo
+https://web-production-1b256.up.railway.app/
+
+⚠️ Demo uses file-based storage. Data resets on redeploy.
