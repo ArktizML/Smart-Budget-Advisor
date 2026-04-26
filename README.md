@@ -36,7 +36,6 @@ The project was designed as a **full-stack portfolio application** with emphasis
   - Key spending insights
   - Basic statistics (average transaction, median transaction)
   - Monthly spending trends
-  - Category breakdown
   - Simple anomaly detection
 - AI chat assistant for budget-related questions
 - Export advisor insights and statistics to a PDF report
