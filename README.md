@@ -49,7 +49,6 @@ The project was designed as a **full-stack portfolio application** with emphasis
 - User registration and login
 - Secure password hashing
 - Session-based authentication
-- Logout functionality
 - User-specific settings and data separation
 
 ### ⚙️ User Settings
