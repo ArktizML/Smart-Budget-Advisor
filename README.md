@@ -1,6 +1,6 @@
 # 💰 Smart Budget Advisor
 
-**Smart Budget Advisor** is a personal finance web application built with **Flask** that helps users track expenses, analyze spending patterns, and receive AI-assisted insights — all in a simple, privacy-focused setup using local JSON storage.
+**Smart Budget Advisor** is a personal finance web application built with **Flask** that helps users track expenses, analyze spending patterns, and receive AI-assisted insights — all in a simple, privacy-focused setup using JSON storage.
 
 The project was designed as a **full-stack portfolio application** with emphasis on:
 - clean backend architecture
