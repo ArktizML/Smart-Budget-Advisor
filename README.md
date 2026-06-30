@@ -142,7 +142,7 @@ pytest
 - Practice backend-driven data validation and processing
 - Implement correct and safe currency conversion logic
 - Create a portfolio-ready project suitable for recruiters
-- Prepare the codebase for future migration to FastAPI or a SQL database
+- Prepare the codebase for future migration to FastAPI or SQL database
 
 ---
 
