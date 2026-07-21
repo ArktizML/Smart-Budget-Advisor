@@ -13,7 +13,7 @@ The project was designed as a **full-stack portfolio application** with emphasis
 ## 🚀 Features
 
 ### 💸 Expense Management
-- Add, edit and delete expenses
+- Full CRUD for expenses 
 - Assign categories and descriptions
 - Per-user expense isolation
 - Input validation and error handling
