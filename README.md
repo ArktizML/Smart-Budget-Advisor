@@ -4,7 +4,7 @@
 
 The project was designed as a **full-stack portfolio application** with emphasis on:
 - clean backend architecture
-- correct financial and currency logic
+- correct financial and currency logic,
 - user data isolation
 - realistic, production features
 
